@@ -1,0 +1,5 @@
+
+*.csv
+__pycache__/genJson.cpython-311.pyc
+__pycache__/json_classes.cpython-311.pyc
+__pycache__/new_scrape.cpython-311.pyc
