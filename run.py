@@ -3,9 +3,6 @@ from json_classes import Root, AStatsDef, AStatsKicking, AStatsOther, AStatsPass
 from new_scrape import export_stats_to_csv
 import json
 
-def deserialize (obj):
-    return Root(obj['id'], obj['hId'], obj['aId'], obj['weather'], obj['hMascot'], obj['aMascot'], obj['hAbb'], obj['aAbb'], obj['hRec'], obj['aRec'], obj['h1Q'], obj['hF'], obj['a1Q'], obj['a2Q'], obj['a3Q'], obj['a4Q'], obj['aF'], obj["oPOGId"], obj['dPOGId'], obj['oPOG'], obj['dPOG'], obj['aFD'], obj['a3rdM'], obj['a3rdA'], obj['aYds'], obj['aPassing'], obj['aComp'], obj['aAtt'], obj['aYPP'], obj['aRushing'], obj['aRushes'], obj['aYPR'], obj['aPen'], obj['aPenYds'], obj['aTO'], obj['aInt'], obj['aTOP'], obj['hFD'], obj['h3rdM'], obj['h3rdA'], obj['h4thA'], obj['hYds'], obj['hPassing'], obj['hComp'], obj['hAtt'], obj['hYPP'], obj['hRushing'], obj['hRushes'], obj['hYPR'], obj['hPen'], obj['hPenYds'], obj['hTOP'], obj['scoring1Q'], obj['scoring2Q'], obj['scoring3Q'], obj['scoring4Q'], obj['scoringOT'], obj['aStatsPassing'], obj['hStatsPassing'], obj['aStatsRushing'], obj['hStatsRushing'], obj['aStatsReceiving'], obj['hStatsReceiving'], obj['aStatsKicking'], obj['hStatsKicking'], obj['aStatsPunting'], obj['hStatsPunting'], obj['aStatsST'], obj['hStatsST'], obj['aStatsDef'], obj['hStatsDef'], obj['aStatsOther'], obj['hStatsOther'], obj['h2Q'], obj['hFum'], obj['aFum'], obj['h4thM'], obj['hTO'], obj['hFumL'], obj['h4Q'], obj['a4thM'], obj['a4thA'], obj['h3Q'], obj['hInt'], obj['aFumL'])
-
 def main(i_d: str, player_id: int, pathname: str, season: int):
     number = (int(player_id) % 10) + 1
     json_string = gen_json(number, player_id, i_d, season)
