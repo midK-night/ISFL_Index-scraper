@@ -6,10 +6,10 @@ import json
 def main(i_d: str, player_id: int, pathname: str, season: int):
     number = (int(player_id) % 10) + 1
     json_string = gen_json(number, player_id, i_d, season)
-    root = json.loads(json_string, object_hook=deserialize)
+    root = json.loads(json_string)
     final_game = root[0]
     for game in root:
-        if game.id == player_id:
+        if game['id'] == player_id:
             final_game = game
             break
     export_stats_to_csv(final_game, pathname)
@@ -22,9 +22,5 @@ if __name__ == '__main__':
     player_id = input("Enter ID: ")
     season = input("Enter Season: ")
     pathname = input("Enter desired pathname: ")
-    i_d = ""
-    if (int(input("ISFL or DSFL? (1/2): ")) == 1) :
-        i_d = "I"
-    else:
-        i_d = "D"
+    i_d = "I" if int(input("ISFL or DSFL? (1/2): ")) == 1 else "D"
     main(i_d,player_id, pathname, season)
