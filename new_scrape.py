@@ -24,7 +24,7 @@ def export_stats_to_csv(root: dict, path):
     receivingHeaders = ['id', 'name', 'c', 'tar', 'y', 'avg', 'td', 'l']
     kickingHeaders = ['id', 'name', 'xpm', 'xpa', 'fga_u20', 'fgm_u20', 'fga_2029', 'fgm_2029', 'fga_3039', 'fgm_3039', 'fga_4049', 'fgm_4049', 'fga_50', 'fgm_50']
     puntingHeaders = ['id', 'name', 'p', 'y', 'a', 'l', 'i']
-   #TODO: fix krtd, prtd for st, 
+    #TODO: fix krtd, prtd for st, 
     STHeaders = ['id', 'name', 'kr', 'kry', 'krl', 'krtd', 'pr', 'pry', 'prl', 'prtd'] 
     #TODO: fix block xp for defense
     defenseHeaders = ['id', 'name', 't', 'tfl', 's', 'ff', 'fr', 'pd', 'i', 'sf', 'td', 'bp', 'bxp', 'bfg']
@@ -51,20 +51,20 @@ def export_stats_to_csv(root: dict, path):
     # Exporting game metadata
     game_data = {
         'id': root['id'],
-        'hMascot': root['hMascot'],
-        'aMascot': root['aMascot'],
-        'hAbb': root['hAbb'],
-        'aAbb': root['aAbb'],
-        'h1Q': root['h1Q'],
-        'h2Q': root['h2Q'],
-        'h3Q': root['h3Q'],
-        'h4Q': root['h4Q'],
-        'hF': root['hF'],
-        'a1Q': root['a1Q'],
-        'a2Q': root['a2Q'],
-        'a3Q': root['a3Q'],
-        'a4Q': root['a4Q'],
-        'aF': root['aF'],
+        'hMascot': root.get('hMascot', None),
+        'aMascot': root.get('aMascot', None),
+        'hAbb': root.get('hAbb', None),
+        'aAbb': root.get('aAbb', None),
+        'h1Q': root.get('h1Q', None),
+        'h2Q': root.get('h2Q', None),
+        'h3Q': root.get('h3Q', None),
+        'h4Q': root.get('h4Q', None),
+        'hF': root.get('hF', None),
+        'a1Q': root.get('a1Q', None),
+        'a2Q': root.get('a2Q', None),
+        'a3Q': root.get('a3Q', None),
+        'a4Q': root.get('a4Q', None),
+        'aF': root.get('aF', None),
         'oPOG': root['oPOG'],
         'dPOG': root['dPOG'],
         'aFD': root['aFD'],
@@ -73,7 +73,8 @@ def export_stats_to_csv(root: dict, path):
         'hYds': root['hYds']
         # Add other relevant fields as needed
     }
-    with open(os.path.join(path, 'game_metadata.csv'), mode='w', newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=game_data.keys())
+
+    with open(os.path.join(path, 'game_metadata.csv'), mode='w', newline='') as file: 
+        writer = csv.DictWriter(file, game_data.keys())
         writer.writeheader()
         writer.writerow(game_data)
