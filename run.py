@@ -1,5 +1,4 @@
 from genJson import gen_json
-from json_classes import Root, AStatsDef, AStatsKicking, AStatsOther, AStatsPassing, AStatsPunting, AStatsReceiving, AStatsRushing, AStatsST, HStatsDef, HStatsKicking, HStatsOther, HStatsPassing, HStatsPunting, HStatsReceiving, HStatsRushing, HStatsST
 from new_scrape import export_stats_to_csv
 import json
 
@@ -9,9 +8,13 @@ def main(i_d: str, player_id: int, pathname: str, season: int):
     root = json.loads(json_string)
     final_game = root[0]
     for game in root:
-        if game['id'] == player_id:
-            final_game = game
-            break
+        game_id = int(game.get('id'))
+        if int(game_id) == int(player_id):
+            final_game = game 
+            break 
+    if int(final_game.get('id')) != int(player_id):
+        raise Exception('wrong game')
+    # print(final_game.get('id'))
     export_stats_to_csv(final_game, pathname)
 
 
