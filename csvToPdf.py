@@ -155,8 +155,30 @@ def defenseString(foldername: str, filename: str):
             blockP = row['bp'] if row['bp'] != '' else '0'
             blockXP = row['bxp'] if row['bxp'] != '' else '0'
             blockFG = row['bfg'] if row['bfg'] != '' else '0'
-
-    pass
+            tackles += int(t)
+            tfl += int(tfls)
+            sack += int(sacks)
+            ff += int(ffs)
+            fr += int(frs)
+            pd += int(pds)
+            i += int(ints)
+            safety += int(safeties)
+            td += int(touchdowns)
+            bp += int(blockP)
+            bxp += int(blockXP)
+            bfg += int(blockFG)
+    final_string += f"{tackles} tackles, {tfl} tackles for loss, {sack} sacks, {ff}/{fr} forced fumbles/recovered fumbles, {pd} passes deflected, {i} ints"
+    if safety > 0:
+        final_string += f", {safety} safet{'y' if safety == 1 else 'ies'}"
+    if td > 0:
+        final_string += f", {td} touchdown{'s' if td > 1 else ''}"
+    if bp > 0:
+        final_string += f", {bp} blocked punt{'s' if bp > 1 else ''}"
+    if bxp > 0:
+        final_string += f", {bxp} blocked extra point{'s' if bxp > 1 else ''}"
+    if bfg > 0:
+        final_string += f", {bfg} blocked field goal{'s' if bfg > 1 else ''}"
+    return final_string
 
 def krString(foldername: str, filename: str):
     final_string = ''
