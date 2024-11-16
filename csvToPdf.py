@@ -57,8 +57,46 @@ def receivingString(foldername: str, filename: str):
             final_string += '\n'
     return final_string
 
-def kickingStats():
-    pass
+def kickingStats(foldername: str, filename: str):
+    final_string = ''
+    with open(os.pay.join(foldername, filename), mode='r', newline='') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            hasBeenUsed = False
+            name = row['name']
+            formatted_string = f"{name} - "
+            if row['xpa'] != '':
+                xpm = row['xpm'] if row['xpm'] != '' else '0'
+                xpa = row['xpa']
+                formatted_string += f"{xpm}/{xpa} on xps"
+                hasBeenUsed = True
+            if row['fga_u20'] != '':
+                fga = row['fga_u20']
+                fgm = row['fgm_u20'] if row['fgm_u20'] != '' else '0'
+                formatted_string += f"{', 'if hasBeenUsed else ''}{fgm}/{fga} on fgs under 20"
+                hasBeenUsed = True
+            if row['fga_2029'] != '':
+                fga = row['fga_2029']
+                fgm = row['fgm_2029'] if row['fgm_2029'] != '' else '0'
+                formatted_string += f"{', 'if hasBeenUsed else ''}{fgm}/{fga} on fgs from 20-29"
+                hasBeenUsed = True
+            if row['fga_3039'] != '':
+                fga = row['fga_3039']
+                fgm = row['fgm_3039'] if row['fgm_3039'] != '' else '0'
+                formatted_string += f"{', 'if hasBeenUsed else ''}{fgm}/{fga} on fgs from 30-39"
+                hasBeenUsed = True
+            if row['fga_4049'] != '':
+                fga = row['fga_4049']
+                fgm = row['fgm_4049'] if row['fgm_4049'] != '' else '0'
+                formatted_string += f"{', 'if hasBeenUsed else ''}{fgm}/{fga} on fgs from 40-49"
+                hasBeenUsed = True
+            if row['fga_50'] != '':
+                fga = row['fga_50']
+                fgm = row['fgm_50'] if row['fgm_50'] != '' else '0'
+                formatted_string += f"{', 'if hasBeenUsed else ''}{fgm}/{fga} on fgs above 50"
+            formatted_string += "\n"
+            final_string += formatted_string
+    return final_string
 
 def puntingStats(foldername: str, filename: str):
     final_string = ''
