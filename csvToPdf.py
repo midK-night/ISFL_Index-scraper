@@ -125,7 +125,37 @@ def blockingStats(foldername: str, filename: str):
                 final_string += formatted_string
     return final_string
 
-def defenseString(foldername: str):
+def defenseString(foldername: str, filename: str):
+    final_string = ''
+    tackles = 0
+    tfl = 0
+    sack = 0
+    ff = 0
+    fr = 0
+    pd = 0
+    i = 0
+    safety = 0
+    td = 0
+    bp = 0
+    bxp = 0
+    bfg = 0
+
+    with open(os.path.join(foldername, filename), mode='r', newline='') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            t = row['t'] if row['t'] != '' else '0'
+            tfls = row['tfl'] if row['tfl'] != '' else '0'
+            sacks = row['s'] if row['s'] != '' else '0'
+            ffs = row['ff'] if row['ff'] != '' else '0'
+            frs = row['fr'] if row['fr'] != '' else '0'
+            pds = row['pd'] if row['pd'] != '' else '0'
+            ints = row['i'] if row['i'] != '' else '0'
+            safeties = row['sf'] if row['sf'] != '' else '0'
+            touchdowns = row['td'] if row['td'] != '' else '0'
+            blockP = row['bp'] if row['bp'] != '' else '0'
+            blockXP = row['bxp'] if row['bxp'] != '' else '0'
+            blockFG = row['bfg'] if row['bfg'] != '' else '0'
+
     pass
 
 def krString(foldername: str, filename: str):
