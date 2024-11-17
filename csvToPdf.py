@@ -164,8 +164,8 @@ def blockingString(foldername: str, filename: str) -> str:
         for row in reader:
             if row['pan'] != '' or row['sacks'] != '':
                 name = row['name']
-                pancakes = row['pan']
-                sacks = row['sacks']
+                pancakes = row['pan'] if row['pan'] != '' else '0'
+                sacks = row['sacks'] if row['sacks'] != '' else '0'
                 formatted_string = f"{name} - {pancakes} pancake{'s' if pancakes != '1' else ''}, {sacks} sack{'s' if pancakes != '1' else ''} allowed\n"
                 final_string += formatted_string
     return final_string
