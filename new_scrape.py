@@ -23,8 +23,7 @@ def export_stats_to_csv(root: dict, path):
     receivingHeaders = ['id', 'name', 'c', 'tar', 'y', 'avg', 'td', 'l']
     kickingHeaders = ['id', 'name', 'xpm', 'xpa', 'fga_u20', 'fgm_u20', 'fga_2029', 'fgm_2029', 'fga_3039', 'fgm_3039', 'fga_4049', 'fgm_4049', 'fga_50', 'fgm_50']
     puntingHeaders = ['id', 'name', 'p', 'y', 'a', 'l', 'i']
-    #TODO: fix krtd, prtd for st, 
-    STHeaders = ['id', 'name', 'kr', 'kry', 'krl', 'krtd', 'pr', 'pry', 'prl', 'prtd'] 
+    STHeaders = ['id', 'name', 'kr', 'kry', 'krl', 'krt', 'pr', 'pry', 'prl', 'prt'] 
     #TODO: fix block xp for defense
     defenseHeaders = ['id', 'name', 't', 'tfl', 's', 'ff', 'fr', 'pd', 'i', 'sf', 'td', 'bp', 'bxp', 'bfg']
     otherHeaders = ['id', 'name', 'pen', 'y', 'pan', 'sacks']
