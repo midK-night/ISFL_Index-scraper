@@ -27,7 +27,7 @@ def main():
 def toPdf(folder, gameData, h_pass, a_pass, h_rush, a_rush, h_rec, a_rec, h_block, a_block, h_def, a_def, h_kick, a_kick, h_punt, a_punt, h_kr, a_kr, h_pr, a_pr):
     with open(os.path.join(folder, "writeup.txt"), mode='w') as file:
         file.write(f"{gameData['hMascot']} VS {gameData['aMascot']}\n\nSummary TBD\n\n" +
-f"OFFENSE\n\nPassing:\n{gameData['hMascot']}: \n{h_pass}\n\n\n{gameData['aMascot']}: \n{a_pass}\n\nTakeaways: TBD\n\n" +
+f"OFFENSE\n\nPassing:\n{gameData['hMascot']}: \n{h_pass}\n\n{gameData['aMascot']}: \n{a_pass}\n\nTakeaways: TBD\n\n" +
 f"Rushing:\n{gameData['hMascot']}: \n{h_rush}\n\n{gameData['aMascot']}: \n{a_rush}\n\nTakeaways: TBD\n\n" +
 f"Receiving\n{gameData['hMascot']}: \n{h_rec}\n\n{gameData['aMascot']}: \n{a_rec}\n\nTakeaways: TBD\n\n" +
 f"Blocking\n{gameData['hMascot']}: \n{h_block}\n\n{gameData['aMascot']}: \n{a_block}\n\nTakeaways: TBD\n\n\n" +
@@ -39,7 +39,7 @@ f"Kick Returns:\n{gameData['hMascot']}:  \n{h_kr}\n\n{gameData['aMascot']}: \n{a
 
 def gameMetadata(foldername: str) -> dict:
     important = {}
-    with open(os.path.join(foldername, "game_metatdata.csv"), mode='r', newline='') as file:
+    with open(os.path.join(foldername, "game_metadata.csv"), mode='r', newline='') as file:
         reader = csv.DictReader(file)
         for row in reader:
             important['hMascot'] = row['hMascot']
@@ -104,7 +104,7 @@ def receivingString(foldername: str, filename: str) -> str:
 
 def kickingString(foldername: str, filename: str) -> str:
     final_string = ''
-    with open(os.pay.join(foldername, filename), mode='r', newline='') as file:
+    with open(os.path.join(foldername, filename), mode='r', newline='') as file:
         reader = csv.DictReader(file)
         for row in reader:
             hasBeenUsed = False
