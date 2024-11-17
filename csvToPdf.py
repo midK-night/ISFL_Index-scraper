@@ -65,7 +65,7 @@ def passingString(foldername: str, filename: str) -> str:
             sacks = row["sacked"] if row['sacked'] != '' else '0'
             qbr = row["r"] 
             formatted_string = ( f"{name} - {comp}/{att}, {comp_percentage}% completion percentage, {yards} yards, " +
-                                f"{tds} TD{'s' if sacks != '1' else ''} and {ints} INT{'s' if sacks != '1' else ''}, {sacks} sack{'s' if sacks != '1' else ''} taken, and a {qbr} QBR" )
+                                f"{tds} TD{'s' if tds != '1' else ''} and {ints} INT{'s' if tds != '1' else ''}, {sacks} sack{'s' if sacks != '1' else ''} taken, and a {qbr} QBR" )
             final_string += formatted_string
             final_string += '\n'
     return final_string
@@ -80,8 +80,8 @@ def rushingString(foldername: str, filename: str) -> str:
             yards = row["y"] 
             ypc = row["avg"] 
             tds = row["td"] if row['td'] != '' else '0'
-            formatted_string = ( f"{name} - {attempts} touches for {yards} yards, {ypc} yards per carry" + 
-                                f"{' and {tds} TD' if tds != '0' else '' }{'s' if int(tds) > 1 else ''}" )
+            formatted_string = ( f"{name} - {attempts} touch{'es' if attempts != '1' else ''} for {yards} yards, {ypc} yards per carry" + 
+                                f"{f' and {tds} TD' if tds != '0' else '' }{'s' if int(tds) > 1 else ''}" )
             final_string += formatted_string
             final_string += '\n'
     return final_string
@@ -97,7 +97,7 @@ def receivingString(foldername: str, filename: str) -> str:
             yards = row["y"] 
             tds = row["td"] if row['td'] != '' else '0'
             formatted_string = ( f"{name} - {catches}/{targets} for {yards} yards" + 
-                                f"{' and {tds} TD' if tds != '0' else '' }{'s' if int(tds) > 1 else ''}" )
+                                f"{f' and {tds} TD' if tds != '0' else '' }{'s' if int(tds) > 1 else ''}" )
             final_string += formatted_string
             final_string += '\n'
     return final_string
@@ -153,7 +153,7 @@ def puntingString(foldername: str, filename: str) -> str:
             yards = row['y']
             avg = row['a']
             in20 = row['i']
-            formatted_string = f"{name} - {punts} punts for {yards} yards, {avg} average yards per punt, and {in20} punts that landed in the 20\n"
+            formatted_string = f"{name} - {punts} punts for {yards} yards, {avg} average yards per punt, and {in20} punt{'s' if in20 != '1' else ''} that landed in the 20\n"
             final_string += formatted_string
     return final_string
 
@@ -212,7 +212,7 @@ def defenseString(foldername: str, filename: str) -> str:
             bp += int(blockP)
             bxp += int(blockXP)
             bfg += int(blockFG)
-    final_string += f"{tackles} tackles, {tfl} tackle{'s' if tfl > 1 else ''} for loss, {sack} sack{'s' if sack > 1 else ''}, {ff}/{fr} forced fumble{'s' if ff > 1 else ''}/recovered fumble{'s' if fr > 1 else ''}, {pd} pass{'es' if pd > 1 else ''} deflected, {i} int{'s' if i > 1 else ''}"
+    final_string += f"{tackles} tackles, {tfl} tackle{'s' if tfl > 1 else ''} for loss, {sack} sack{'s' if sack > 1 else ''}, {ff}/{fr} forced fumble{'s' if ff > 1 else ''}/recovered fumble{'s' if fr > 1 else ''}, {pd} pass{'es' if pd > 1 else ''} deflected, {i} int{'s' if i != 1 else ''}"
     if safety > 0:
         final_string += f", {safety} safet{'y' if safety == 1 else 'ies'}"
     if td > 0:
@@ -235,10 +235,10 @@ def krString(foldername: str, filename: str) -> str:
                 name = row["name"] 
                 yards = row["kry"] if row['kry'] != '' else '0'
                 longest = row["krl"] if row['krl'] != '' else '0'
-                average = float(yards)/float(attempts)
+                average = round(float(yards)/float(attempts), 2)
                 tds = row["krt"] if row['krt'] != '' else '0'
                 formatted_string = ( f"{name} - {attempts} returns for {yards} yards, {average} yards per carry, and a longest return of {longest}" + 
-                                    f"{f' and {tds} TD' if tds != 0 else '' }{'s' if int(tds) > 1 else ''}" )
+                                    f"{f' and {tds} TD' if tds != '0' else '' }{'s' if int(tds) > 1 else ''}" )
                 final_string += formatted_string
                 final_string += '\n'
     return final_string
@@ -253,10 +253,10 @@ def prString(foldername: str, filename: str) -> str:
                 name = row["name"] 
                 yards = row["pry"] if row['pry'] != '' else '0'
                 longest = row["prl"] if row['prl'] != '' else '0'
-                average = float(yards)/float(attempts)
+                average = round(float(yards)/float(attempts), 2)
                 tds = row["prt"] if row['prt'] != '' else '0'
                 formatted_string = ( f"{name} - {attempts} returns for {yards} yards, {average} yards per carry, and a longest return of {longest}" + 
-                                    f"{f' and {tds} TD' if tds != 0 else '' }{'s' if int(tds) > 1 else ''}" )
+                                    f"{f' and {tds} TD' if tds != '0' else '' }{'s' if int(tds) > 1 else ''}" )
                 final_string += formatted_string
                 final_string += '\n'
     return final_string
