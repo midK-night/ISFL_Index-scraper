@@ -212,7 +212,7 @@ def defenseString(foldername: str, filename: str) -> str:
             bp += int(blockP)
             bxp += int(blockXP)
             bfg += int(blockFG)
-    final_string += f"{tackles} tackles, {tfl} tackles for loss, {sack} sacks, {ff}/{fr} forced fumbles/recovered fumbles, {pd} passes deflected, {i} ints"
+    final_string += f"{tackles} tackles, {tfl} tackle{'s' if tfl > 1 else ''} for loss, {sack} sack{'s' if sack > 1 else ''}, {ff}/{fr} forced fumble{'s' if ff > 1 else ''}/recovered fumble{'s' if fr > 1 else ''}, {pd} pass{'es' if pd > 1 else ''} deflected, {i} int{'s' if i > 1 else ''}"
     if safety > 0:
         final_string += f", {safety} safet{'y' if safety == 1 else 'ies'}"
     if td > 0:
