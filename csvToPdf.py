@@ -238,7 +238,7 @@ def krString(foldername: str, filename: str) -> str:
                 average = float(yards)/float(attempts)
                 tds = row["td"] if row['krtd'] != '' else '0'
                 formatted_string = ( f"{name} - {attempts} returns for {yards} yards, {average} yards per carry, and a longest return of {longest}" + 
-                                    f"{' and {tds} TD' if tds != 0 else '' }{'s' if int(tds) > 1 else ''}" )
+                                    f"{f' and {tds} TD' if tds != 0 else '' }{'s' if int(tds) > 1 else ''}" )
                 final_string += formatted_string
                 final_string += '\n'
     return final_string
@@ -256,7 +256,7 @@ def prString(foldername: str, filename: str) -> str:
                 average = float(yards)/float(attempts)
                 tds = row["td"] if row['prtd'] != '' else '0'
                 formatted_string = ( f"{name} - {attempts} returns for {yards} yards, {average} yards per carry, and a longest return of {longest}" + 
-                                    f"{' and {tds} TD' if tds != 0 else '' }{'s' if int(tds) > 1 else ''}" )
+                                    f"{f' and {tds} TD' if tds != 0 else '' }{'s' if int(tds) > 1 else ''}" )
                 final_string += formatted_string
                 final_string += '\n'
     return final_string
