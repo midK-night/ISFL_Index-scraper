@@ -3,7 +3,52 @@ import os
 
 def main():
     folder = input('enter the folder name: ')
+    gameData = gameMetadata(folder)
+    h_passing = passingString(folder, "h_stats_passing.csv")
+    a_passing = passingString(folder, "a_stats_passing.csv")
+    h_rushing = rushingString(folder, "h_stats_rushing.csv")
+    a_rushing = rushingString(folder, "a_stats_rushing.csv")
+    h_receiving = receivingString(folder, "h_stats_receiving.csv")
+    a_receiving = receivingString(folder, "a_stats_receiving.csv")
+    h_blocking = blockingString(folder, "h_stats_other.csv")
+    a_blocking = blockingString(folder, "a_stats_other.csv")
+    h_defense = f"{gameData['hMascot']} - " + defenseString(folder, 'h_stats_def.csv')
+    a_defense = f"{gameData['aMascot']} - " + defenseString(folder, "a_stats_def.csv")
+    h_kicking = kickingString(folder, "h_stats_kicking.csv")
+    a_kicking = kickingString(folder, "a_stats_kicking.csv")
+    h_punting = puntingString(folder, "h_stats_punting.csv")
+    a_punting = puntingString(folder, "a_stats_punting.csv")
+    h_kr = krString(folder, "h_stats_st.csv")
+    a_kr = krString(folder, "a_stats_st.csv")
+    h_pr = prString(folder, "h_stats_st.csv")
+    a_pr = prString(folder, "a_stats_st.csv")
+    toPdf(folder, gameData, h_passing, a_passing, h_rushing, a_rushing, h_receiving, a_receiving, h_blocking, a_blocking, h_defense, a_defense, h_kicking, a_kicking, h_punting, a_punting, h_kr, a_kr, h_pr, a_pr)
 
+def toPdf(folder, gameData, h_pass, a_pass, h_rush, a_rush, h_rec, a_rec, h_block, a_block, h_def, a_def, h_kick, a_kick, h_punt, a_punt, h_kr, a_kr, h_pr, a_pr):
+    with open(os.path.join(folder, "writeup.txt"), mode='w') as file:
+        file.write(f"{gameData['hMascot']} VS {gameData['aMascot']}\n\nSummary TBD\n\n" +
+f"OFFENSE\n\nPassing:\n{gameData['hMascot']}: \n{h_pass}\n\n\n{gameData['aMascot']}: \n{a_pass}\n\nTakeaways: TBD\n\n" +
+f"Rushing:\n{gameData['hMascot']}: \n{h_rush}\n\n{gameData['aMascot']}: \n{a_rush}\n\nTakeaways: TBD\n\n" +
+f"Receiving\n{gameData['hMascot']}: \n{h_rec}\n\n{gameData['aMascot']}: \n{a_rec}\n\nTakeaways: TBD\n\n" +
+f"Blocking\n{gameData['hMascot']}: \n{h_block}\n\n{gameData['aMascot']}: \n{a_block}\n\nTakeaways: TBD\n\n\n" +
+f"DEFENSE\n\nSo uh there’s a whole lot of stats for this, so I’m going to break it down into team stats and note down some important players and what stats they got\n____________________________________________________________________________\n\n" +
+f"{gameData['hMascot']}: \n{h_def}\n\nStandout players (including but not limited to) - TBD\n\n{gameData['aMascot']}: \n{a_def}\n\nStandout players (including but not limited to) - TBD\n\nBig Takeaways: TBD\n\n\n" +
+f"SPECIAL TEAMS\n\nKicking:\n{gameData['hMascot']}: \n{h_kick}\n\n{gameData['aMascot']}: \n{a_kick}\n\nPunting:\n{gameData['hMascot']}: \n{h_punt}\n\n{gameData['aMascot']}: \n{a_punt}\n\nTakeaways: TBD\n\n\n" +
+f"Kick Returns:\n{gameData['hMascot']}:  \n{h_kr}\n\n{gameData['aMascot']}: \n{a_kr}\n\nPunt Returns:\n{gameData['hMascot']}: \n{h_pr}\n\n{gameData['aMascot']}: \n{a_pr}\n\nTakeaways: TBD\n\nFinal Notes: TBD")
+    pass
+
+def gameMetadata(foldername: str) -> dict:
+    important = {}
+    with open(os.path.join(foldername, "game_metatdata.csv"), mode='r', newline='') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            important['hMascot'] = row['hMascot']
+            important['aMascot'] = row['aMascot']
+            important['hAbb'] = row['hAbb']
+            important['aAbb'] = row['aAbb']
+            important['oPOG'] = row['oPOG']
+            important['dPOG'] = row['dPOG']
+    return important
 
 def passingString(foldername: str, filename: str) -> str:
     final_string = ''
@@ -41,7 +86,7 @@ def rushingString(foldername: str, filename: str) -> str:
             final_string += '\n'
     return final_string
 
-def receivingString(foldername: str, filename: str):
+def receivingString(foldername: str, filename: str) -> str:
     final_string = ''
     with open(os.path.join(foldername, filename), mode='r', newline='') as file: 
         reader = csv.DictReader(file) 
@@ -57,7 +102,7 @@ def receivingString(foldername: str, filename: str):
             final_string += '\n'
     return final_string
 
-def kickingStats(foldername: str, filename: str):
+def kickingString(foldername: str, filename: str) -> str:
     final_string = ''
     with open(os.pay.join(foldername, filename), mode='r', newline='') as file:
         reader = csv.DictReader(file)
@@ -98,7 +143,7 @@ def kickingStats(foldername: str, filename: str):
             final_string += formatted_string
     return final_string
 
-def puntingStats(foldername: str, filename: str):
+def puntingString(foldername: str, filename: str) -> str:
     final_string = ''
     with open(os.path.join(foldername, filename), mode='r', newline='') as file:
         reader = csv.DictReader(file)
@@ -112,7 +157,7 @@ def puntingStats(foldername: str, filename: str):
             final_string += formatted_string
     return final_string
 
-def blockingStats(foldername: str, filename: str):
+def blockingString(foldername: str, filename: str) -> str:
     final_string = ''
     with open(os.path.join(foldername, filename), mode='r', newline='') as file:
         reader = csv.DictReader(file)
@@ -125,7 +170,7 @@ def blockingStats(foldername: str, filename: str):
                 final_string += formatted_string
     return final_string
 
-def defenseString(foldername: str, filename: str):
+def defenseString(foldername: str, filename: str) -> str:
     final_string = ''
     tackles = 0
     tfl = 0
@@ -180,7 +225,7 @@ def defenseString(foldername: str, filename: str):
         final_string += f", {bfg} blocked field goal{'s' if bfg > 1 else ''}"
     return final_string
 
-def krString(foldername: str, filename: str):
+def krString(foldername: str, filename: str) -> str:
     final_string = ''
     with open(os.path.join(foldername, filename), mode='r', newline='') as file: 
         reader = csv.DictReader(file) 
@@ -198,7 +243,7 @@ def krString(foldername: str, filename: str):
                 final_string += '\n'
     return final_string
 
-def prString(foldername: str, filename: str):
+def prString(foldername: str, filename: str) -> str:
     final_string = ''
     with open(os.path.join(foldername, filename), mode='r', newline='') as file: 
         reader = csv.DictReader(file) 
