@@ -62,20 +62,28 @@ class defensivePlayer:
     def WAG_points(this) -> float:
         return (.75 * this.t) + (2.5 * this.tfl) + (3 * this.sack) + (4 * this.ff) + (2 * this.fr) + (1.25 * this.pd) + (6 * this.i) + (6 * this.safety) + (8 * this.td) + (6 * (this.bp + this.bxp)) + (7 * this.bxp)
     
+    def check_plural(stat, name, ending, singular=''):
+        if stat > 1:
+                return f"{name}{ending}"
+        return f"{name}{singular}"
+    
     def getString(this) -> str:
-        fullString = ""
-        fullString += f"{this.name} - {f'{this.tackles} tackle{'s' if this.tackles > 1 else ''}, ' if this.tackles > 0 else ''}"
-        fullString += f"{f'{this.tfl} tackle{'s' if this.tfl > 1 else ''} for loss, ' if this.tfl > 0 else ''}"
-        fullString += f"{f'{this.sack} sack{'s' if this.sack > 1 else ''}, ' if this.sack > 0 else ''}"
-        fullString += f"{f'{this.ff} forced fumble{'s' if this.ff > 1 else ''}, ' if this.ff > 0 else ''}"
-        fullString += f"{f'{this.fr} fumble{'s' if this.fr > 1 else ''} recovered, ' if this.fr > 0 else ''}"
-        fullString += f"{f'{this.pd} pass{'es' if this.pd > 1 else ''} deflected, ' if this.pd > 0 else ''}"
-        fullString += f"{f'{this.i} interception{'s' if this.i > 1 else ''}, ' if this.i > 0 else ''}"
-        fullString += f"{f'{this.safety} safet{'ies' if this.safety > 1 else 'y'}, ' if this.safety > 0 else ''}"
-        fullString += f"{f'{this.td} defensive touchdown{'s' if this.td > 1 else ''}, ' if this.td > 0 else ''}"
-        fullString += f"{f'{this.bp} blocked punt{'s' if this.bp > 1 else ''}, ' if this.bp > 0 else ''}"
-        fullString += f"{f'{this.bxp} blocked extra point{'s' if this.bxp > 1 else ''}, ' if this.bxp > 0 else ''}"
-        fullString += f"{f'{this.bfg} blocked field goal{'s' if this.bfg > 1 else ''}, ' if this.bfg > 0 else ''}"
+        fullString = f"{this.name} - "
+        fullString += f"{this.t} {this.check_plural(this.t, 'tackle','s')}, " if this.t > 0 else ""
+        fullString += f"{this.tfl} {this.check_plural(this.tfl, 'tackle', 's')} for loss, " if this.tfl > 0 else ""
+        fullString += f"{this.sack} {this.check_plural(this.sack, 'sack', 's')}, " if this.sack > 0 else ""
+        fullString += f"{this.ff} {this.check_plural(this.ff, 'forced fumble', 's')}, " if this.ff > 0 else ""
+        fullString += f"{this.fr} {this.check_plural(this.fr, 'fumble', 's')} recovered, " if this.fr > 0 else ""
+        fullString += f"{this.pd} {this.check_plural(this.pd, 'pass', 'es')} deflected, " if this.pd > 0 else ""
+        fullString += f"{this.i} {this.check_plural(this.i, 'interception')}, " if this.i > 0 else ""
+        fullString += f"{this.safety} {this.check_plural(this.safety, 'safet', 'ies', singular='y')}, " if this.safety > 0 else ""
+        fullString += f"{this.td} {this.check_plural(this.td, 'defensive touchdown', 's')}, " if this.td > 0 else ""
+        fullString += f"{this.bp} {this.check_plural(this.bp, 'blocked punt', 's')}, " if this.bp > 0 else ""
+        fullString += f"{this.bxp} {this.check_plural(this.bxp, 'blocked extra point', 's')}, " if this.bxp > 0 else ""
+        fullString += f"{this.bfg} {this.check_plural(this.bfg, 'blocked field goal', 's')}, " if this.bfg > 0 else ""
+        
+        if fullString.endswith(', '): 
+            fullString = fullString[:-2]
         return fullString
 
 def gameMetadata(foldername: str) -> dict:
