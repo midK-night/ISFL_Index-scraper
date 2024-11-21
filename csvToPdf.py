@@ -1,5 +1,6 @@
 import csv
 import os
+from dataclasses import dataclass
 
 def main():
     folder = input('enter the folder name: ')
@@ -260,6 +261,30 @@ def prString(foldername: str, filename: str) -> str:
                 final_string += formatted_string
                 final_string += '\n'
     return final_string
+
+@dataclass
+class defensivePlayer:
+    id: int
+    name: str
+    fullString: str
+    t: int
+    tfl: int
+    sack: int
+    ff: int
+    fr: int
+    pd: int
+    i: int
+    safety: int
+    td: int
+    bp: int
+    bxp: int
+    bfg: int
+
+    def WAG_points(this) -> float:
+        return (.75 * this.t) + (2.5 * this.tfl) + (3 * this.sack) + (4 * this.ff) + (2 * this.fr) + (1.25 * this.pd) + (6 * this.i) + (6 * this.safety) + (8 * this.td) + (6 * (this.bp + this.bxp)) + (7 * this.bxp)
+    
+    def getString(this) -> str:
+        return this.fullString
 
 if __name__ == '__main__':
     main()
