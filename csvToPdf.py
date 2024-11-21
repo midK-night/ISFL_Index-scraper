@@ -266,7 +266,6 @@ def prString(foldername: str, filename: str) -> str:
 class defensivePlayer:
     id: int
     name: str
-    fullString: str
     t: int
     tfl: int
     sack: int
@@ -284,7 +283,20 @@ class defensivePlayer:
         return (.75 * this.t) + (2.5 * this.tfl) + (3 * this.sack) + (4 * this.ff) + (2 * this.fr) + (1.25 * this.pd) + (6 * this.i) + (6 * this.safety) + (8 * this.td) + (6 * (this.bp + this.bxp)) + (7 * this.bxp)
     
     def getString(this) -> str:
-        return this.fullString
+        fullString = ""
+        fullString += f"{this.name} - {f'{this.tackles} tackle{'s' if this.tackles > 1 else ''}, ' if this.tackles > 0 else ''}"
+        fullString += f"{f'{this.tfl} tackle{'s' if this.tfl > 1 else ''} for loss, ' if this.tfl > 0 else ''}"
+        fullString += f"{f'{this.sack} sack{'s' if this.sack > 1 else ''}, ' if this.sack > 0 else ''}"
+        fullString += f"{f'{this.ff} forced fumble{'s' if this.ff > 1 else ''}, ' if this.ff > 0 else ''}"
+        fullString += f"{f'{this.fr} fumble{'s' if this.fr > 1 else ''} recovered, ' if this.fr > 0 else ''}"
+        fullString += f"{f'{this.pd} pass{'es' if this.pd > 1 else ''} deflected, ' if this.pd > 0 else ''}"
+        fullString += f"{f'{this.i} interception{'s' if this.i > 1 else ''}, ' if this.i > 0 else ''}"
+        fullString += f"{f'{this.safety} safet{'ies' if this.safety > 1 else 'y'}, ' if this.safety > 0 else ''}"
+        fullString += f"{f'{this.td} defensive touchdown{'s' if this.td > 1 else ''}, ' if this.td > 0 else ''}"
+        fullString += f"{f'{this.bp} blocked punt{'s' if this.bp > 1 else ''}, ' if this.bp > 0 else ''}"
+        fullString += f"{f'{this.bxp} blocked extra point{'s' if this.bxp > 1 else ''}, ' if this.bxp > 0 else ''}"
+        fullString += f"{f'{this.bfg} blocked field goal{'s' if this.bfg > 1 else ''}, ' if this.bfg > 0 else ''}"
+        return fullString
 
 if __name__ == '__main__':
     main()
