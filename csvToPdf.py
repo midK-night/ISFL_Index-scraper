@@ -264,7 +264,25 @@ def defenseString(foldername: str, filename: str) -> str:
     return final_string
 
 def defensivePlayers(foldername: str, filename: str) -> list[defensivePlayer]:
-    pass
+    allStats = []
+    with open(os.path.join(foldername, filename), mode='r', newline='') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            t = row['t'] if row['t'] != '' else '0'
+            tfl = row['tfl'] if row['tfl'] != '' else '0'
+            sack = row['s'] if row['s'] != '' else '0'
+            ff = row['ff'] if row['ff'] != '' else '0'
+            fr = row['fr'] if row['fr'] != '' else '0'
+            pd = row['pd'] if row['pd'] != '' else '0'
+            i = row['i'] if row['i'] != '' else '0'
+            safety = row['sf'] if row['sf'] != '' else '0'
+            td = row['td'] if row['td'] != '' else '0'
+            bp = row['bp'] if row['bp'] != '' else '0'
+            bxp = row['bxp'] if row['bxp'] != '' else '0'
+            bfg = row['bfg'] if row['bfg'] != '' else '0'
+            player = defensivePlayer(row['id'], row['name'], int(t), int(tfl), int(sack), int(ff), int(fr), int(pd), int(i), int(safety), int(td), int(bp), int(bxp), int(bfg))
+            allStats.append(player)
+    return allStats
 
 def krString(foldername: str, filename: str) -> str:
     final_string = ''
