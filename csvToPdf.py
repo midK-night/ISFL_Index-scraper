@@ -15,6 +15,10 @@ def main():
     a_blocking = blockingString(folder, "a_stats_other.csv")
     h_defense = f"{gameData['hMascot']} - " + defenseString(folder, 'h_stats_def.csv')
     a_defense = f"{gameData['aMascot']} - " + defenseString(folder, "a_stats_def.csv")
+    h_defense_players = defensivePlayers(folder, 'h_stats_def.csv')
+    a_defense_players = defensivePlayers(folder, 'a_stats_def.csv')
+    h_def_players = defensivePlayerString(h_defense_players)
+    a_def_players = defensivePlayerString(a_defense_players)
     h_kicking = kickingString(folder, "h_stats_kicking.csv")
     a_kicking = kickingString(folder, "a_stats_kicking.csv")
     h_punting = puntingString(folder, "h_stats_punting.csv")
@@ -23,9 +27,9 @@ def main():
     a_kr = krString(folder, "a_stats_st.csv")
     h_pr = prString(folder, "h_stats_st.csv")
     a_pr = prString(folder, "a_stats_st.csv")
-    toPdf(folder, gameData, h_passing, a_passing, h_rushing, a_rushing, h_receiving, a_receiving, h_blocking, a_blocking, h_defense, a_defense, h_kicking, a_kicking, h_punting, a_punting, h_kr, a_kr, h_pr, a_pr)
+    toPdf(folder, gameData, h_passing, a_passing, h_rushing, a_rushing, h_receiving, a_receiving, h_blocking, a_blocking, h_defense, a_defense, h_def_players, a_def_players, h_kicking, a_kicking, h_punting, a_punting, h_kr, a_kr, h_pr, a_pr)
 
-def toPdf(folder, gameData, h_pass, a_pass, h_rush, a_rush, h_rec, a_rec, h_block, a_block, h_def, a_def, h_kick, a_kick, h_punt, a_punt, h_kr, a_kr, h_pr, a_pr):
+def toPdf(folder, gameData, h_pass, a_pass, h_rush, a_rush, h_rec, a_rec, h_block, a_block, h_def, a_def, h_def_player, a_def_player, h_kick, a_kick, h_punt, a_punt, h_kr, a_kr, h_pr, a_pr):
     with open(os.path.join(folder, "writeup.txt"), mode='w') as file:
         file.write(f"{gameData['hMascot']} VS {gameData['aMascot']}\n\nSummary TBD\n\n" +
 f"OFFENSE\n\nPassing:\n{gameData['hMascot']}: \n{h_pass}\n\n{gameData['aMascot']}: \n{a_pass}\n\nTakeaways: TBD\n\n" +
@@ -33,7 +37,7 @@ f"Rushing:\n{gameData['hMascot']}: \n{h_rush}\n\n{gameData['aMascot']}: \n{a_rus
 f"Receiving\n{gameData['hMascot']}: \n{h_rec}\n\n{gameData['aMascot']}: \n{a_rec}\n\nTakeaways: TBD\n\n" +
 f"Blocking\n{gameData['hMascot']}: \n{h_block}\n\n{gameData['aMascot']}: \n{a_block}\n\nTakeaways: TBD\n\n\n" +
 f"DEFENSE\n\nSo uh there’s a whole lot of stats for this, so I’m going to break it down into team stats and note down some important players and what stats they got\n____________________________________________________________________________\n\n" +
-f"{gameData['hMascot']}: \n{h_def}\n\nStandout players (including but not limited to) - TBD\n\n{gameData['aMascot']}: \n{a_def}\n\nStandout players (including but not limited to) - TBD\n\nBig Takeaways: TBD\n\n\n" +
+f"{gameData['hMascot']}: \n{h_def}\n\n{h_def_player}\n{gameData['aMascot']}: \n{a_def}\n\n{a_def_player}\nBig Takeaways: TBD\n\n\n" +
 f"SPECIAL TEAMS\n\nKicking:\n{gameData['hMascot']}: \n{h_kick}\n\n{gameData['aMascot']}: \n{a_kick}\n\nPunting:\n{gameData['hMascot']}: \n{h_punt}\n\n{gameData['aMascot']}: \n{a_punt}\n\nTakeaways: TBD\n\n\n" +
 f"Kick Returns:\n{gameData['hMascot']}:  \n{h_kr}\n\n{gameData['aMascot']}: \n{a_kr}\n\nPunt Returns:\n{gameData['hMascot']}: \n{h_pr}\n\n{gameData['aMascot']}: \n{a_pr}\n\nTakeaways: TBD\n\nFinal Notes: TBD")
     pass
@@ -73,7 +77,6 @@ class defensivePlayer:
         fullString += f"{f'{this.bxp} blocked extra point{'s' if this.bxp > 1 else ''}, ' if this.bxp > 0 else ''}"
         fullString += f"{f'{this.bfg} blocked field goal{'s' if this.bfg > 1 else ''}, ' if this.bfg > 0 else ''}"
         return fullString
-
 
 def gameMetadata(foldername: str) -> dict:
     important = {}
@@ -283,6 +286,13 @@ def defensivePlayers(foldername: str, filename: str) -> list[defensivePlayer]:
             player = defensivePlayer(row['id'], row['name'], int(t), int(tfl), int(sack), int(ff), int(fr), int(pd), int(i), int(safety), int(td), int(bp), int(bxp), int(bfg))
             allStats.append(player)
     return allStats
+
+def defensivePlayerString(players: list[defensivePlayer]) -> str:
+    final_string = 'Standout players (including but not limited to) - \n'
+    players.sort(key=defensivePlayer.WAG_points, reverse=True)
+    for x in range(3):
+        final_string += f"{players[x].getString}\n"
+    return final_string
 
 def krString(foldername: str, filename: str) -> str:
     final_string = ''
