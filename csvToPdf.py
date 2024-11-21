@@ -62,7 +62,7 @@ class defensivePlayer:
     def WAG_points(this) -> float:
         return (.75 * this.t) + (2.5 * this.tfl) + (3 * this.sack) + (4 * this.ff) + (2 * this.fr) + (1.25 * this.pd) + (6 * this.i) + (6 * this.safety) + (8 * this.td) + (6 * (this.bp + this.bxp)) + (7 * this.bxp)
     
-    def check_plural(stat, name, ending, singular=''):
+    def check_plural(self, stat, name, ending, singular=''):
         if stat > 1:
                 return f"{name}{ending}"
         return f"{name}{singular}"
@@ -75,7 +75,7 @@ class defensivePlayer:
         fullString += f"{this.ff} {this.check_plural(this.ff, 'forced fumble', 's')}, " if this.ff > 0 else ""
         fullString += f"{this.fr} {this.check_plural(this.fr, 'fumble', 's')} recovered, " if this.fr > 0 else ""
         fullString += f"{this.pd} {this.check_plural(this.pd, 'pass', 'es')} deflected, " if this.pd > 0 else ""
-        fullString += f"{this.i} {this.check_plural(this.i, 'interception')}, " if this.i > 0 else ""
+        fullString += f"{this.i} {this.check_plural(this.i, 'interception', 's')}, " if this.i > 0 else ""
         fullString += f"{this.safety} {this.check_plural(this.safety, 'safet', 'ies', singular='y')}, " if this.safety > 0 else ""
         fullString += f"{this.td} {this.check_plural(this.td, 'defensive touchdown', 's')}, " if this.td > 0 else ""
         fullString += f"{this.bp} {this.check_plural(this.bp, 'blocked punt', 's')}, " if this.bp > 0 else ""
@@ -84,6 +84,7 @@ class defensivePlayer:
         
         if fullString.endswith(', '): 
             fullString = fullString[:-2]
+        fullString += '\n'
         return fullString
 
 def gameMetadata(foldername: str) -> dict:
@@ -298,8 +299,9 @@ def defensivePlayers(foldername: str, filename: str) -> list[defensivePlayer]:
 def defensivePlayerString(players: list[defensivePlayer]) -> str:
     final_string = 'Standout players (including but not limited to) - \n'
     players.sort(key=defensivePlayer.WAG_points, reverse=True)
-    for x in range(3):
-        final_string += f"{players[x].getString}\n"
+    final_string += str(players.pop(0).getString())
+    final_string += str(players.pop(0).getString())
+    final_string += str(players.pop(0).getString())
     return final_string
 
 def krString(foldername: str, filename: str) -> str:
