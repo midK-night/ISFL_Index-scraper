@@ -60,7 +60,7 @@ class defensivePlayer:
     bfg: int
 
     def WAG_points(this) -> float:
-        return (.75 * this.t) + (2.5 * this.tfl) + (3 * this.sack) + (4 * this.ff) + (2 * this.fr) + (1.25 * this.pd) + (6 * this.i) + (6 * this.safety) + (8 * this.td) + (6 * (this.bp + this.bxp)) + (7 * this.bxp)
+        return  (this.t) + (2.25 * this.tfl) + (4 * this.sack) + (3.75 * this.ff) + (1.25 * this.fr) + (1.75 * this.pd) + (6 * this.i) + (6 * this.safety) + (8 * this.td) + (6 * (this.bp + this.bxp)) + (7 * this.bxp)
     
     def check_plural(self, stat, name, ending, singular=''):
         if stat > 1:
